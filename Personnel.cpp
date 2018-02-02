@@ -72,7 +72,9 @@ void Personnel::writeToFile(ofstream& out)
     out <<", SSN:" << this->getSSN() << ", City:";
     out.write(_city, cityLen);
     out <<", YOB:" << this->getYOB() << ", Salary:";
-    out.write(reinterpret_cast<const char*>(&_salary), sizeof(long));
+    out.write(_salary,sizeof(_salary));
+    //out.write(reinterpret_cast<const char*>(&_salary), sizeof(long));
+    out << '\n';
 
 
 }
