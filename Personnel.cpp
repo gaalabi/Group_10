@@ -81,6 +81,13 @@ void Personnel::writeToFile(ofstream& out)
 char* Personnel::readFromFile(ofstream& in)
 {
     in.read
+    /*
+    maybe we can do something like this?
+    while(!eof){
+        cin>>Name>>City>>SSN>>YOB>>Salary;
+        Personnel A(Name,SSN,YOB,City,Salary)
+    }
+    *;/
 };
 
 
