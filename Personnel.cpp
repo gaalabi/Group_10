@@ -78,7 +78,10 @@ void Personnel::writeToFile(ofstream& out)
 
 
 }
-//void readFromFile();
+char* Personnel::readFromFile(ofstream& in)
+{
+    in.read
+};
 
 
 Personnel::~Personnel()
