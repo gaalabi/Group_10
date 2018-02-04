@@ -16,21 +16,23 @@ class Personnel
 {
     public:
         Personnel();
-        Personnel(char n[], char s[], char y[], char c[], char m[]);
+        Personnel(char n[], char s[], char y[], char c[], char sal[]);
         void setname(char n[]);
         void setSSN(char s[]);
         void setYOB(char y[]);
         void setcity(char c[]);
-        void setsalary(char m[]);
+        void setsalary(char sal[]);
         void print();
         void writeToFile(ofstream& out);
-        Personnel* readFromFile(ifstream& in, Personnel &p);
+        Personnel* readFromFile(ifstream& in);
 
         char* getName();
         char* getSSN();
         char* getYOB();
         char* getCity();
         char* getSalary();
+        int getNameLen();
+        int getCityLen();
 
         virtual ~Personnel();
 

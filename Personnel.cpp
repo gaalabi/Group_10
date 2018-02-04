@@ -10,13 +10,13 @@ Personnel::Personnel() : nameLen(10),cityLen(10)
     _salary = new char[8];
 
 }
-Personnel::Personnel(char n[], char s[], char y[], char c[], char m[])
+Personnel::Personnel(char n[], char s[], char y[], char c[], char sal[])
 {
     strncpy(_name, n, nameLen+1);
     strncpy(_SSN, s, 10);
     strncpy(_YOB, y, 5);
     strncpy(_city, c, cityLen+1);
-    strncpy(_salary, m, 8);
+    strncpy(_salary, sal, 8);
 
 }
 void Personnel::setname(char n[])
@@ -36,9 +36,9 @@ void Personnel::setYOB(char y[])
 {
     strncpy(_YOB, y, 5);
 }
-void Personnel::setsalary(char m[])
+void Personnel::setsalary(char sal[])
 {
-    strncpy(_salary, m, 8);
+    strncpy(_salary, sal, 8);
 }
 char* Personnel::getName()
 {
@@ -60,23 +60,29 @@ char* Personnel::getYOB()
 {
     return _YOB;
 }
+int Personnel::getNameLen()
+{
+    return nameLen;
+}
+int Personnel::getCityLen()
+{
+    return cityLen;
+}
 
 void Personnel::print()
 {
-    cout << "Name:" << this->getName() <<", SSN:" << this->getSSN() << ", City:" << this->getCity() <<", YOB:" << this->getYOB() << ", Salary:" << this->getSalary();
+    cout << "Name:" << this->getName() <<", SSN:" << this->getSSN() << ", City:" << this->getCity() <<", YOB:" << this->getYOB() << ", Salary:" << this->getSalary() << endl;
 }
 void Personnel::writeToFile(ofstream& out)
 {
-
-        out.write(_name,nameLen);
-        out << this->getSSN();
-        out.write(_city, cityLen);
-        out << this->getYOB();
-        out.write(_salary,8);
-        //out.write(reinterpret_cast<const char*>(&_salary), sizeof(long));
-
+    out.write(_name,nameLen);
+    out << this->getSSN();
+    out.write(_city, cityLen);
+    out << this->getYOB();
+    out.write(_salary,8);
+    //out.write(reinterpret_cast<const char*>(&_salary), sizeof(long));
 }
-Personnel* Personnel::readFromFile(ifstream& in, Personnel &p)
+Personnel* Personnel::readFromFile(ifstream& in)
 {
     string record;
     char r, rec[41];
@@ -139,20 +145,13 @@ Personnel* Personnel::readFromFile(ifstream& in, Personnel &p)
     strncpy(ye, yob.c_str(), 5);
     strncpy(sa, salary.c_str(), 8);
 
+    this->setname(n);
+    this->setSSN(s);
+    this->setcity(c);
+    this->setYOB(ye);
+    this->setsalary(sa);
 
-
-    p.setname(n);
-    p.setSSN(s);
-    p.setcity(c);
-    p.setYOB(ye);
-    p.setsalary(sa);
-
-
-
-    return &p;
-
-
-
+    return this;
 
 }
 
