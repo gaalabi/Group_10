@@ -4,7 +4,9 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include "ArguemnetManager.h"
+#include <string>
+#include <typeinfo>
+
 
 using namespace std;
 
@@ -22,7 +24,7 @@ class Personnel
         void setsalary(char m[]);
         void print();
         void writeToFile(ofstream& out);
-        void readFromFile(ofstream& in);
+        Personnel* readFromFile(ifstream& in, Personnel &p);
 
         char* getName();
         char* getSSN();

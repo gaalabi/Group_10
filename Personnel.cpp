@@ -12,16 +12,16 @@ Personnel::Personnel() : nameLen(10),cityLen(10)
 }
 Personnel::Personnel(char n[], char s[], char y[], char c[], char m[])
 {
-    strncpy(_name, n, nameLen);
+    strncpy(_name, n, nameLen+1);
     strncpy(_SSN, s, 10);
     strncpy(_YOB, y, 5);
-    strncpy(_city, c, cityLen);
+    strncpy(_city, c, cityLen+1);
     strncpy(_salary, m, 8);
 
 }
 void Personnel::setname(char n[])
 {
-    strncpy(_name, n, nameLen);
+    strncpy(_name, n, nameLen+1);
 
 }
 void Personnel::setSSN(char s[])
@@ -30,7 +30,7 @@ void Personnel::setSSN(char s[])
 }
 void Personnel::setcity(char c[])
 {
-    strncpy(_city, c, cityLen);
+    strncpy(_city, c, cityLen+1);
 }
 void Personnel::setYOB(char y[])
 {
@@ -67,28 +67,94 @@ void Personnel::print()
 }
 void Personnel::writeToFile(ofstream& out)
 {
-    out << "Name:";
-    out.write(_name,nameLen);
-    out <<", SSN:" << this->getSSN() << ", City:";
-    out.write(_city, cityLen);
-    out <<", YOB:" << this->getYOB() << ", Salary:";
-    out.write(_salary,sizeof(_salary));
-    //out.write(reinterpret_cast<const char*>(&_salary), sizeof(long));
-    out << '\n';
+
+        out.write(_name,nameLen);
+        out << this->getSSN();
+        out.write(_city, cityLen);
+        out << this->getYOB();
+        out.write(_salary,8);
+        //out.write(reinterpret_cast<const char*>(&_salary), sizeof(long));
+
+}
+Personnel* Personnel::readFromFile(ifstream& in, Personnel &p)
+{
+    string record;
+    char r, rec[41];
+    string name, ssn, city, yob, salary;
+    char n[nameLen+1], s[10], c[cityLen+1], ye[5], sa[8];
+
+
+    while(in >> r)
+    {
+        record.push_back(r);
+    }
+
+    cout << record << '\n';
+
+    for(int j = 0; j < 40; j++)
+    {
+        rec[j] = record[j];
+
+        cout << rec[j];
+    }
+
+    cout << endl;
+
+
+
+    for(int i = 0; i < nameLen; i++)
+    {
+        name.push_back(rec[i]);
+    }
+
+    for(int i = 0; i < 9; i++)
+    {
+        ssn.push_back(rec[nameLen+i]);
+    }
+
+    for(int i = 0; i < cityLen; i++)
+    {
+        city.push_back(rec[nameLen+9+i]);
+    }
+
+    for(int i = 0; i < 4; i++)
+    {
+        yob.push_back(rec[nameLen+9+cityLen+i]);
+    }
+    for(int i = 0; i < 8 && rec[nameLen+13+cityLen+i] != '\0' ; i++)
+    {
+        salary.push_back(rec[nameLen+13+cityLen+i]);
+    }
+
+    cout << name << endl;
+    cout << ssn <<endl;
+    cout << city <<endl;
+    cout << yob << endl;
+    cout << salary <<endl;
+
+
+    strncpy(n, name.c_str(), nameLen+1);
+    strncpy(s, ssn.c_str(), 10);
+    strncpy(c,city.c_str(),cityLen+1);
+    strncpy(ye, yob.c_str(), 5);
+    strncpy(sa, salary.c_str(), 8);
+
+
+
+    p.setname(n);
+    p.setSSN(s);
+    p.setcity(c);
+    p.setYOB(ye);
+    p.setsalary(sa);
+
+
+
+    return &p;
+
+
 
 
 }
-char* Personnel::readFromFile(ofstream& in)
-{
-    in.read
-    /*
-    maybe we can do something like this?
-    while(!eof){
-        cin>>Name>>City>>SSN>>YOB>>Salary;
-        Personnel A(Name,SSN,YOB,City,Salary)
-    }
-    *;/
-};
 
 
 Personnel::~Personnel()
