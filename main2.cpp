@@ -4,12 +4,12 @@ using namespace std;
 #include "Personnel.hpp"
 #include "Student.hpp"
 #include "database.hpp"
-
+#include <string>
 
 int main() {
     
     database <Student> Studentfile;
-    database <Personnel> Personnelfile;
+    //database <Personnel> Personnelfile;
     
     bool over = false;
     int answer;
@@ -19,6 +19,7 @@ int main() {
     string ASDF;
     string QWERTY;
     
+    string Text;
     char *textFile;
     
     Personnel A;
@@ -30,6 +31,13 @@ int main() {
     string YOB;
     string Salary;
     string Major;
+    
+    char * name2;
+    char * SSN2;
+    char * City2;
+    char * YOB2;
+    char * Salary2;
+    char * Major2;
     
     while (!over){
         
@@ -49,7 +57,7 @@ int main() {
                 cout<<endl;
                 
                 cout<<"What is the database txt file name: ";
-                cin>>textFile;
+                cin>>Text;
                 cout<<endl;
                 
                 cout<<"What is the name (no spaces please): ";
@@ -59,7 +67,7 @@ int main() {
                 cout<<"What is the SSN (no hyphen, just the numbers (9 digits only): ";
                 cin>>SSN;
                 cout<<endl;
-                
+            
                 cout<<"What is the City (no spaces please): ";
                 cin>>City;
                 cout<<endl;
@@ -77,57 +85,82 @@ int main() {
                     cin>>Major;
                     cout<<endl;
                 }
+                
+                strncpy(name2, name.c_str(), 11);
+                strncpy(SSN2, SSN.c_str(), 10);
+                strncpy(City2, City.c_str(), 11);
+                strncpy(YOB2, YOB.c_str(), 5);
+                strncpy(Salary2, Salary.c_str(), 8);
+                strncpy(Major2, Major.c_str(), 21);
+                strcpy(textFile, Text.c_str());
                 if (answer2 == 1){
                     //i'm not sure how to use the set for student
-                    B.setname(name);
-                    B.setSSN(SSN);
-                    B.setYOB(YOB);
-                    B.setcity(City);
-                    B.setsalary(Salary);
-                    
-                    B.writeToFile(File2);
-                    File2.close();
+                        //nvm, if i initialted the stuff as char*, it works
+                    B.setname(name2);
+                    B.setSSN(SSN2);
+                    B.setYOB(YOB2);
+                    B.setcity(City2);
+                    B.setsalary(Salary2);
+                    B.setMajor(Major2);
                     
                     //or we could do something like this
-                    Studentfile.add(textFile, B);
+                    //Studentfile.add(Text, B);
                 }
                 else{
                     //i'm not sure how to use the set for personnel
-                    A.setname(name);
-                    A.setSSN(SSN);
-                    A.setYOB(YOB);
-                    A.setcity(City);
-                    A.setsalary(Salary);
-                    
-                    A.writeToFile(File2);
-                    File2.close();
+                        //nvm, if i initialted the stuff as char*, it works
+                    A.setname(name2);
+                    A.setSSN(SSN2);
+                    A.setYOB(YOB2);
+                    A.setcity(City2);
+                    A.setsalary(Salary2);
                     
                     //or we could do something like this
-                    Personnelfile.add(textFile, A);
+                    //Personnelfile.add(Text, A);
                 }
                 break;
-            case 2:
+            /*case 2:
                 //if they choose to Find
+                cout<<"Student (1) or personnel (2) ?: ";
+                cin>>answer2;
+                cout<<endl;
+                
                 cout<<"What is the database txt file name: ";
-                cin>>textFile;
+                cin>>Text;
                 cout<<endl;
                 
                 cout<<"Who is the person whom you are trying to find (type in their SSN): ";
                 cin>>QWERTY;
                 cout<<endl;
                 
-                if (Studentfile.find(textFile, QWERTY) != -1){
-                    cout<<"This person do exist in file"<<endl;
+                strcpy(textFile, Text.c_str());
+                
+                if (answer2 == 1){
+                    if (Studentfile.find(textFile, QWERTY,answer2) != -1){
+                        cout<<"This person do exist in file"<<endl;
+                    }
+                    else{
+                        cout<<"This person does not exist in file"<<endl;
+                    }
                 }
                 else{
-                    cout<<"This person does not exist in file"<<endl;
+                    if (Personnelfile.find(textFile, QWERTY,answer2) != -1){
+                        cout<<"This person do exist in file"<<endl;
+                    }
+                    else{
+                        cout<<"This person does not exist in file"<<endl;
+                    }
                 }
                 break;
                 
             case 3:
                 //if they choose to modify
+                cout<<"Student (1) or personnel (2) ?: ";
+                cin>>answer2;
+                cout<<endl;
+                
                 cout<<"What is the database txt file name: ";
-                cin>>textFile;
+                cin>>Text;
                 cout<<endl;
                 
                 cout<<"Who is the person whom you are trying to change (type in their SSN): ";
@@ -142,15 +175,27 @@ int main() {
                 cin>>Change_To_What;
                 cout<<endl;
                 
-                Studentfile.modify(textFile,QWERTY,Change_What,Change_To_What);
+                strcpy(textFile, Text.c_str());
+                
+                if (answer2 == 1){
+                    Studentfile.modify(textFile,QWERTY,Change_What,Change_To_What,answer2);
+                }
+                else{
+                    Personnelfile.modify(textFile,QWERTY,Change_What,Change_To_What,answer2);
+                }
                 break;
                 
             case 4:
-                cout<<"What is the database txt file name: ";
-                cin>>textFile;
+                cout<<"Student (1) or personnel (2) ?: ";
+                cin>>answer2;
                 cout<<endl;
-                Studentfile.print(textFile);
-                break;
+                cout<<"What is the database txt file name: ";
+                cin>>Text;
+                cout<<endl;
+                
+                strcpy(textFile, Text.c_str());
+                Studentfile.print(textFile,answer2);
+                break;*/
             case 5:
                 over = true;
                 break;
