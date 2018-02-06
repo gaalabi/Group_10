@@ -60,6 +60,11 @@ char* Personnel::getYOB()
 {
     return _YOB;
 }
+int Personnel::getBPR()
+{
+    return nameLen+cityLen+4+9+7;
+}
+
 int Personnel::getNameLen()
 {
     return nameLen;
@@ -79,7 +84,7 @@ void Personnel::writeToFile(ofstream& out)
     out << this->getSSN();
     out.write(_city, cityLen);
     out << this->getYOB();
-    out.write(_salary,8);
+    out.write(_salary,7);
     //out.write(reinterpret_cast<const char*>(&_salary), sizeof(long));
 }
 Personnel* Personnel::readFromFile(ifstream& in)
@@ -95,16 +100,16 @@ Personnel* Personnel::readFromFile(ifstream& in)
         record.push_back(r);
     }
 
-    cout << record << '\n';
+    //cout << record << '\n';
 
     for(int j = 0; j < 40; j++)
     {
         rec[j] = record[j];
 
-        cout << rec[j];
+        //cout << rec[j];
     }
 
-    cout << endl;
+    //cout << endl;
 
 
 
@@ -127,16 +132,16 @@ Personnel* Personnel::readFromFile(ifstream& in)
     {
         yob.push_back(rec[nameLen+9+cityLen+i]);
     }
-    for(int i = 0; i < 8 && rec[nameLen+13+cityLen+i] != '\0' ; i++)
+    for(int i = 0; i < 7 && rec[nameLen+13+cityLen+i] != '\0' ; i++)
     {
         salary.push_back(rec[nameLen+13+cityLen+i]);
     }
 
-    cout << name << endl;
+   /* cout << name << endl;
     cout << ssn <<endl;
     cout << city <<endl;
     cout << yob << endl;
-    cout << salary <<endl;
+    cout << salary <<endl; */
 
 
     strncpy(n, name.c_str(), nameLen+1);

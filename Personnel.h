@@ -33,6 +33,7 @@ class Personnel
         char* getSalary();
         int getNameLen();
         int getCityLen();
+        int getBPR();
 
         virtual ~Personnel();
 

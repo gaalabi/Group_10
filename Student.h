@@ -13,6 +13,7 @@ class Student : public Personnel
         void print();
         void writeToFile(ofstream& out);
 
+        int getBPR();
         char* getMajor();
         Student* readFromFile(ifstream& in);
 

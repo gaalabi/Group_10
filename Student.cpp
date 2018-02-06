@@ -17,6 +17,10 @@ char* Student::getMajor()
 {
     return _major;
 }
+int Student::getBPR()
+{
+    return (this->getNameLen())+(this->getCityLen())+majorLen+4+9+7;
+}
 void Student::print()
 {
     cout << "Name:" << this->getName() <<", SSN:" << this->getSSN() << ", City:" << this->getCity() <<", YOB:"
@@ -34,7 +38,7 @@ void Student::writeToFile(ofstream& out)
     out << this->getSSN();
     out.write(this->getCity(),this->getCityLen());
     out << this->getYOB();
-    out.write(this->getSalary(),8);
+    out.write(this->getSalary(),7);
 
     out.write(_major, majorLen);
 }
@@ -53,16 +57,15 @@ Student* Student::readFromFile(ifstream& in)
         record.push_back(r);
     }
 
-    cout << record << '\n';
+    //cout << record << '\n';
 
     for(int j = 0; j < 60; j++)
     {
         rec[j] = record[j];
 
-        cout << rec[j];
     }
 
-    cout << endl;
+    //cout << endl;
 
 
 
@@ -89,17 +92,17 @@ Student* Student::readFromFile(ifstream& in)
     {
         salary.push_back(rec[nL+13+cL+i]);
     }
-    for(int i = 0; i < majorLen && rec[nL+21+cL+i] != '\0' ; i++)
+    for(int i = 0; i < majorLen && rec[nL+20+cL+i] != '\0' ; i++)
     {
-        major.push_back(rec[nL+21+cL+i]);
+        major.push_back(rec[nL+20+cL+i]);
     }
 
-    cout << name << endl;
+    /*cout << name << endl;
     cout << ssn <<endl;
     cout << city <<endl;
     cout << yob << endl;
     cout << salary <<endl;
-    cout << major << endl;
+    cout << major << endl;*/
 
 
     strncpy(n, name.c_str(), nL+1);
@@ -119,6 +122,14 @@ Student* Student::readFromFile(ifstream& in)
     return this;
 
 }
+/*ostream& operator <<(ostream& outs,const ifstream& in)
+{
+    in.seekp(0, instream.end);
+    int length = in.tellp();
+    in.seekp(0, in.beg);
+
+    numOfRecords = length/this->getBPR();
+}*/
 
 Student::~Student()
 {
