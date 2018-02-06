@@ -10,11 +10,11 @@ class Student : public Personnel
         Student();
         Student(char n[], char s[], char y[], char c[], char sal[], char m[]);
         void setMajor(char m[]);
-        void print();
+        void print() const;
         void writeToFile(ofstream& out);
 
         int getBPR();
-        char* getMajor();
+        char* getMajor() const;
         Student* readFromFile(ifstream& in);
 
         virtual ~Student();

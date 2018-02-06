@@ -13,7 +13,7 @@ void Student::setMajor(char m[])
 {
     strncpy(_major, m, majorLen+1);
 }
-char* Student::getMajor()
+char* Student::getMajor() const
 {
     return _major;
 }
@@ -21,7 +21,7 @@ int Student::getBPR()
 {
     return (this->getNameLen())+(this->getCityLen())+majorLen+4+9+7;
 }
-void Student::print()
+void Student::print() const
 {
     cout << "Name:" << this->getName() <<", SSN:" << this->getSSN() << ", City:" << this->getCity() <<", YOB:"
     << this->getYOB() << ", Salary:" << this->getSalary() <<", Major:" << this->getMajor() << endl;
@@ -122,14 +122,6 @@ Student* Student::readFromFile(ifstream& in)
     return this;
 
 }
-/*ostream& operator <<(ostream& outs,const ifstream& in)
-{
-    in.seekp(0, instream.end);
-    int length = in.tellp();
-    in.seekp(0, in.beg);
-
-    numOfRecords = length/this->getBPR();
-}*/
 
 Student::~Student()
 {

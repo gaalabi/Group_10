@@ -40,23 +40,23 @@ void Personnel::setsalary(char sal[])
 {
     strncpy(_salary, sal, 8);
 }
-char* Personnel::getName()
+char* Personnel::getName() const
 {
     return _name;
 }
-char* Personnel::getCity()
+char* Personnel::getCity() const
 {
     return _city;
 }
-char* Personnel::getSalary()
+char* Personnel::getSalary() const
 {
     return _salary;
 }
-char* Personnel::getSSN()
+char* Personnel::getSSN() const
 {
     return _SSN;
 }
-char* Personnel::getYOB()
+char* Personnel::getYOB() const
 {
     return _YOB;
 }
@@ -64,7 +64,6 @@ int Personnel::getBPR()
 {
     return nameLen+cityLen+4+9+7;
 }
-
 int Personnel::getNameLen()
 {
     return nameLen;
@@ -74,10 +73,12 @@ int Personnel::getCityLen()
     return cityLen;
 }
 
-void Personnel::print()
+void Personnel::print() const
 {
-    cout << "Name:" << this->getName() <<", SSN:" << this->getSSN() << ", City:" << this->getCity() <<", YOB:" << this->getYOB() << ", Salary:" << this->getSalary() << endl;
+    cout << "Name:" << this->getName() <<", SSN:" << this->getSSN() << ", City:"
+    << this->getCity() <<", YOB:" << this->getYOB() << ", Salary:" << this->getSalary() << endl;
 }
+
 void Personnel::writeToFile(ofstream& out)
 {
     out.write(_name,nameLen);
